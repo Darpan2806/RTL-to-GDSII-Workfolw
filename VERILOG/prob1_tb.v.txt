@@ -1,0 +1,73 @@
+`timescale 10ns / 1ns
+
+module prob1_tb;
+
+    // Inputs
+    reg clk;
+    reg [15:0] X;
+    reg [1:0]  Z;
+
+    // Output
+    wire [15:0] Y;
+
+    // Instantiate DUT
+    prob1 uut (
+        .clk(clk),
+        .X(X),
+        .Z(Z),
+        .Y(Y)
+    );
+
+    // Clock generation (10ns period)
+    always #5 clk = ~clk;
+
+    initial begin
+        // Initialize
+        clk = 0;
+        X   = 0;
+        Z   = 0;
+
+        // Display output
+        $monitor("Time=%0t | X=%0d | Z=%b | Y=%0d", $time, X, Z, Y);
+
+        // -------- Test 1: X = 256 (1.0) --------
+        X = 16'd256; Z = 2'b00; #10;
+        X = 16'd256; Z = 2'b01; #10;
+        X = 16'd256; Z = 2'b10; #10;
+        X = 16'd256; Z = 2'b11; #10;
+
+        // -------- Test 2: X = 384 (1.5) --------
+        X = 16'd384; Z = 2'b00; #10;
+        X = 16'd384; Z = 2'b01; #10;
+        X = 16'd384; Z = 2'b10; #10;
+        X = 16'd384; Z = 2'b11; #10;
+
+        // -------- Test 3: X = 512 (2.0) --------
+        X = 16'd512; Z = 2'b00; #10;
+        X = 16'd512; Z = 2'b01; #10;
+        X = 16'd512; Z = 2'b10; #10;
+        X = 16'd512; Z = 2'b11; #10;
+
+        // -------- Test 4: X = 128 (0.5) --------
+        X = 16'd128; Z = 2'b00; #10;
+        X = 16'd128; Z = 2'b01; #10;
+        X = 16'd128; Z = 2'b10; #10;
+        X = 16'd128; Z = 2'b11; #10;
+
+        // -------- Test 5: X = 768 (3.0) --------
+        X = 16'd768; Z = 2'b00; #10;
+        X = 16'd768; Z = 2'b01; #10;
+        X = 16'd768; Z = 2'b10; #10;
+        X = 16'd768; Z = 2'b11; #10;
+
+        // -------- Test 6: Random Values --------
+        X = 16'd1000; Z = 2'b01; #10;
+        X = 16'd2000; Z = 2'b10; #10;
+        X = 16'd50;   Z = 2'b11; #10;
+
+        // Finish
+        #20;
+        $finish;
+    end
+
+endmodule

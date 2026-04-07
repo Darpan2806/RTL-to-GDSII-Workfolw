@@ -1,0 +1,31 @@
+`timescale 10ns / 1ns
+
+module prob1 (
+    input              clk,
+    input      [15:0]  X,   // Q8.8 fixed-point
+    input      [1:0]   Z,   // shift value
+    output reg [15:0]  Y
+);
+
+    // Input Registers
+    reg [15:0] X_reg;
+    reg [1:0]  Z_reg;
+
+    // Combinational Output
+    wire [15:0] Y_comb;
+
+    // Register stage (input)
+    always @(posedge clk) begin
+        X_reg <= X;
+        Z_reg <= Z;
+    end
+
+    // Combinational logic
+    assign Y_comb = X_reg >> Z_reg;
+
+    // Register stage (output)
+    always @(posedge clk) begin
+        Y <= Y_comb;
+    end
+
+endmodule
