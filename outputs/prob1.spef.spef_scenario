@@ -1,0 +1,6 @@
+./outputs/prob1.spef.p1_125.spef for scenarios: 
+	 scenario: func::nom, corner type: late
+
+./outputs/prob1.spef.p2_125.spef for scenarios: 
+	 scenario: func::nom, corner type: early
+
